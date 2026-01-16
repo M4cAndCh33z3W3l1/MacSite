@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid XP Desktop</title>
+    <title>XP Grid Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="desktop">
-        <!-- Icons start as hidden -->
-        <div class="icon hidden" id="explorer-icon" draggable="true">
+        <!-- I removed the "hidden" class so they show immediately -->
+        <div class="icon" id="explorer-icon" draggable="true">
             <img src="https://win98icons.alexmeub.com" alt="IE">
             <span>Explorer</span>
         </div>
 
-        <div class="icon hidden" id="settings-icon" draggable="true">
+        <div class="icon" id="settings-icon" draggable="true">
             <img src="https://win98icons.alexmeub.com" alt="Settings">
             <span>Settings</span>
         </div>
 
-        <div class="icon hidden" id="paint-icon" draggable="true">
+        <div class="icon" id="paint-icon" draggable="true">
             <img src="https://win98icons.alexmeub.com" alt="Paint">
             <span>Paint</span>
         </div>
 
         <div class="taskbar">
-            <!-- Start button now toggles icon visibility -->
-            <button class="start-button" id="toggle-icons">Start</button>
+            <button class="start-button">Start</button>
             <div class="taskbar-icons"></div>
             <div class="system-tray"><span class="clock"></span></div>
         </div>

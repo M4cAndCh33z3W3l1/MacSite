@@ -4,8 +4,10 @@ body { font-family: 'Tahoma', sans-serif; overflow: hidden; }
 .desktop {
     width: 100vw;
     height: calc(100vh - 40px);
-    /* Background is now a solid dark color instead of the XP image */
-    background-color: #000000; 
+    /* Restored the Bliss background image */
+    background-image: url('https://upload.wikimedia.org');
+    background-size: cover;
+    background-position: center;
     position: relative;
 }
 
@@ -13,8 +15,8 @@ body { font-family: 'Tahoma', sans-serif; overflow: hidden; }
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100px; /* Grid width */
-    height: 100px; /* Grid height */
+    width: 100px;
+    height: 100px;
     cursor: move;
     text-align: center;
     color: white;
@@ -22,18 +24,11 @@ body { font-family: 'Tahoma', sans-serif; overflow: hidden; }
     user-select: none;
     position: absolute;
     padding: 10px;
-    transition: opacity 0.3s ease;
-}
-
-/* Class to hide icons */
-.icon.hidden {
-    display: none;
 }
 
 .icon img { width: 42px; height: 42px; pointer-events: none; }
 .icon span { font-size: 0.75rem; margin-top: 5px; }
 
-/* Taskbar remains unchanged */
 .taskbar {
     height: 40px;
     background: linear-gradient(to right, #0a246a, #a6c9e2);
