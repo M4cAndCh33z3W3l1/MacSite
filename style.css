@@ -4,18 +4,20 @@ body { font-family: 'Tahoma', sans-serif; overflow: hidden; }
 .desktop {
     width: 100vw;
     height: calc(100vh - 40px);
+    /* Reliable 4K Bliss Wallpaper link */
     background-image: url('https://upload.wikimedia.org');
     background-size: cover;
     background-position: center;
     position: relative;
+    background-color: #3c7d1c; /* Fallback green color if image fails */
 }
 
 .icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100px; /* Grid width */
-    height: 100px; /* Grid height */
+    width: 100px;
+    height: 100px;
     cursor: move;
     text-align: center;
     color: white;
@@ -25,11 +27,13 @@ body { font-family: 'Tahoma', sans-serif; overflow: hidden; }
     padding: 10px;
 }
 
+/* Ensure images show up and are properly sized */
 .icon img { 
-    width: 50px; 
-    height: 50px; 
+    width: 48px; 
+    height: 48px; 
+    display: block;
+    margin: 0 auto;
     pointer-events: none; 
-    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5));
 }
 
 .icon span { font-size: 0.75rem; margin-top: 5px; font-weight: bold; }
@@ -46,7 +50,6 @@ body { font-family: 'Tahoma', sans-serif; overflow: hidden; }
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
 }
 
 .start-button {
@@ -58,5 +61,4 @@ body { font-family: 'Tahoma', sans-serif; overflow: hidden; }
     padding: 4px 15px;
     height: 32px;
     cursor: pointer;
-    box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4) inset;
 }
