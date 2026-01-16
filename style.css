@@ -1,0 +1,73 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: white;
+}
+
+.desktop {
+    /* A common macOS gradient color */
+    background: linear-gradient(to bottom right, #4a74a1, #7c9ec4);
+    height: 100%;
+    position: relative;
+    padding: 20px; /* More padding for icons */
+}
+
+/* Icons are now lighter */
+.icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.icon img {
+    width: 50px; /* Slightly larger icons */
+    height: 50px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.icon span {
+    font-size: 0.8em;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    margin-top: 8px;
+}
+
+/* The Dock */
+.dock-container {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.dock {
+    background: rgba(200, 200, 200, 0.4); /* Translucent background */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    border-radius: 15px;
+    padding: 8px 10px;
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dock-icon {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    border-radius: 10px;
+}
+
+.dock-icon:hover {
+    transform: scale(1.2); /* Jiggle effect on hover */
+}
