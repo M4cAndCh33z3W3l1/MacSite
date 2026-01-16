@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const desktop = document.querySelector('.desktop');
     const gridSize = 100; 
 
-    const savedPositions = JSON.parse(localStorage.getItem('gridPositions')) || {};
+    // 1. Load saved grid positions
+    const savedPositions = JSON.parse(localStorage.getItem('xpGridPositions')) || {};
 
     icons.forEach((icon, index) => {
         const id = icon.id;
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.style.left = savedPositions[id].left;
             icon.style.top = savedPositions[id].top;
         } else {
+            // Default: Vertical column on the left
             icon.style.left = '0px';
             icon.style.top = (index * gridSize) + 'px';
         }
@@ -20,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 2. Desktop Drop & Snap Logic
     desktop.addEventListener('dragover', (e) => e.preventDefault());
 
     desktop.addEventListener('drop', (e) => {
@@ -27,18 +30,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = e.dataTransfer.getData("text/plain");
         const icon = document.getElementById(id);
 
-        // Snap calculation
+        // Snap to nearest 100px grid
         const snapX = Math.round((e.clientX - 50) / gridSize) * gridSize;
         const snapY = Math.round((e.clientY - 50) / gridSize) * gridSize;
 
-        icon.style.left = snapX + 'px';
-        icon.style.top = snapY + 'px';
+        const newLeft = snapX + 'px';
+        const newTop = snapY + 'px';
 
-        savedPositions[id] = { left: icon.style.left, top: icon.style.top };
-        localStorage.setItem('gridPositions', JSON.stringify(savedPositions));
+        icon.style.left = newLeft;
+        icon.style.top = newTop;
+
+        // Save to local storage
+        savedPositions[id] = { left: newLeft, top: newTop };
+        localStorage.setItem('xpGridPositions', JSON.stringify(savedPositions));
     });
 
-    // Clock
+    // 3. Simple XP Clock
     setInterval(() => {
         const clock = document.querySelector('.clock');
         if(clock) clock.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
