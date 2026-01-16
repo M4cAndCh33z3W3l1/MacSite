@@ -4,32 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My XP Desktop</title>
-    <!-- Link your custom CSS file directly -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- The main desktop area -->
     <div class="desktop">
-
-        <!-- Explorer Icon (Using placeholder src for now) -->
-        <div class="icon" id="explorer-icon">
-            <img src="images/explorer.png" alt="Internet Explorer">
-            <span>Explorer</span>
+        <!-- Icons with unique IDs for saving position -->
+        <div class="icon" id="explorer-icon" draggable="true">
+            <img src="https://win98icons.alexmeub.com" alt="Internet Explorer">
+            <span>Internet Explorer</span>
         </div>
 
-        <!-- Settings Icon (Using placeholder src for now) -->
-        <div class="icon" id="settings-icon">
-            <img src="images/settings.png" alt="Settings">
-            <span>Settings</span>
+        <div class="icon" id="settings-icon" draggable="true">
+            <img src="https://win98icons.alexmeub.com" alt="Settings">
+            <span>Control Panel</span>
         </div>
 
-        <!-- Paint Icon (Using placeholder src for now) -->
-        <div class="icon" id="paint-icon">
-            <img src="images/paint.png" alt="Paint">
+        <div class="icon" id="paint-icon" draggable="true">
+            <img src="https://win98icons.alexmeub.com" alt="Paint">
             <span>Paint</span>
         </div>
 
-        <!-- A sample window container -->
+        <!-- Sample Window -->
         <div class="window" id="about-window">
             <div class="title-bar">
                 <div class="title-bar-text">About This Project</div>
@@ -44,18 +39,16 @@
             </div>
         </div>
 
-        <!-- The taskbar -->
+        <!-- Taskbar -->
         <div class="taskbar">
             <button class="start-button">Start</button>
             <div class="taskbar-icons"></div>
             <div class="system-tray">
-                <!-- Clock and system icons go here -->
                 <span class="clock"></span>
             </div>
         </div>
     </div>
 
-    <!-- Link your JavaScript file directly -->
     <script src="main.js"></script>
 </body>
 </html>
