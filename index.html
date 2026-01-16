@@ -1,33 +1,61 @@
-    <!-- Explorer Icon -->
-    <div class="icon" id="explorer-icon">
-        <img src="images/explorer.png" alt="Internet Explorer">
-        <span>Explorer</span>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My XP Desktop</title>
+    <!-- Link your custom CSS file directly -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- The main desktop area -->
+    <div class="desktop">
 
-    <!-- Settings Icon -->
-    <div class="icon" id="settings-icon">
-        <img src="images/settings.png" alt="Settings">
-        <span>Settings</span>
-    </div>
-    
-    <!-- Paint Icon -->
-    <div class="icon" id="paint-icon">
-        <img src="images/paint.png" alt="Paint">
-        <span>Paint</span>
-    </div>
-    
-    <!-- You will style these icons using CSS later -->
-    <!-- A sample window container (initially hidden by CSS) -->
-    <div class="window" id="about-window">
-        <div class="title-bar">
-            <div class="title-bar-text">About This Project</div>
-            <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
+        <!-- Explorer Icon (Using placeholder src for now) -->
+        <div class="icon" id="explorer-icon">
+            <img src="images/explorer.png" alt="Internet Explorer">
+            <span>Explorer</span>
+        </div>
+
+        <!-- Settings Icon (Using placeholder src for now) -->
+        <div class="icon" id="settings-icon">
+            <img src="images/settings.png" alt="Settings">
+            <span>Settings</span>
+        </div>
+
+        <!-- Paint Icon (Using placeholder src for now) -->
+        <div class="icon" id="paint-icon">
+            <img src="images/paint.png" alt="Paint">
+            <span>Paint</span>
+        </div>
+
+        <!-- A sample window container -->
+        <div class="window" id="about-window">
+            <div class="title-bar">
+                <div class="title-bar-text">About This Project</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <p>Welcome to my recreation of the Windows XP desktop!</p>
             </div>
         </div>
-        <div class="window-body">
-            <p>Welcome to my recreation of the Windows XP desktop!</p>
+
+        <!-- The taskbar -->
+        <div class="taskbar">
+            <button class="start-button">Start</button>
+            <div class="taskbar-icons"></div>
+            <div class="system-tray">
+                <!-- Clock and system icons go here -->
+                <span class="clock"></span>
+            </div>
         </div>
     </div>
+
+    <!-- Link your JavaScript file directly -->
+    <script src="main.js"></script>
+</body>
+</html>

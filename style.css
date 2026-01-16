@@ -2,29 +2,32 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Makes padding/border included in element's width/height */
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden; /* Hide scrollbars, it's a desktop */
+    overflow: hidden;
 }
 
 /* The main desktop area */
 .desktop {
     width: 100vw;
-    height: calc(100vh - 40px); /* Full screen height minus taskbar height */
-    background-image: url('images/wallpaper.jpg'); /* You need this image file */
+    height: calc(100vh - 40px);
+    /* Changed to solid green temporarily until you add images/wallpaper.jpg */
+    background-color: #3c7d1c; 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
+
+/* The taskbar */
 .taskbar {
-    height: 40px; /* Standard XP taskbar height */
-    background: linear-gradient(to right, #0a246a, #a6c9e2); /* XP Blue Gradient */
+    height: 40px;
+    background: linear-gradient(to right, #0a246a, #a6c9e2);
     border-top: 1px solid #fff;
     display: flex;
-    justify-content: space-between; /* Pushes start button to left, clock to right */
+    justify-content: space-between;
     align-items: center;
     padding: 0 4px;
     position: fixed;
@@ -32,8 +35,10 @@ body {
     left: 0;
     right: 0;
 }
+
+/* The "Start" Button */
 .start-button {
-    background: linear-gradient(to bottom, #3c7d1c, #4a8d29); /* XP Green Gradient */
+    background: linear-gradient(to bottom, #3c7d1c, #4a8d29);
     border: 1px solid #000;
     border-radius: 4px;
     color: white;
@@ -48,25 +53,28 @@ body {
 .start-button:hover {
     background: linear-gradient(to bottom, #4a8d29, #3c7d1c);
 }
+
 /* Styling for the individual icon containers */
 .icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80px; /* Width to center text nicely */
+    width: 80px;
     margin: 10px;
     cursor: pointer;
     text-align: center;
-    color: white; /* XP desktop text is white by default */
-    text-shadow: 1px 1px #000; /* Makes text readable against wallpaper */
-    user-select: none; /* Prevents text selection when clicking */
+    color: white;
+    text-shadow: 1px 1px #000;
+    user-select: none;
 }
 
 /* Styling for the icon images themselves */
 .icon img {
-    width: 40px; /* Standard size for XP icons */
+    width: 40px;
     height: 40px;
     margin-bottom: 5px;
+    /* This makes it easy to see where the image should be, even if the file is missing */
+    border: 1px solid red; 
 }
 
 /* Styling for the text label beneath the icon */
