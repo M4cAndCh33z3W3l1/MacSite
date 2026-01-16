@@ -1,64 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
     const icons = document.querySelectorAll('.icon');
     const desktop = document.querySelector('.desktop');
+    const toggleBtn = document.getElementById('toggle-icons');
+    const gridSize = 100; // Size of each grid square
 
-    // 1. Load saved positions from LocalStorage
-    const savedPositions = JSON.parse(localStorage.getItem('xpIconPositions')) || {};
+    // 1. Load saved positions
+    const savedPositions = JSON.parse(localStorage.getItem('gridPositions')) || {};
 
     icons.forEach((icon, index) => {
         const id = icon.id;
-
-        // Apply saved position or set default if new
         if (savedPositions[id]) {
             icon.style.left = savedPositions[id].left;
             icon.style.top = savedPositions[id].top;
         } else {
-            icon.style.left = '20px';
-            icon.style.top = (20 + (index * 100)) + 'px';
+            // Default grid placement
+            icon.style.left = '0px';
+            icon.style.top = (index * gridSize) + 'px';
         }
 
-        // 2. Drag Start Logic
         icon.addEventListener('dragstart', (e) => {
-            const rect = icon.getBoundingClientRect();
-            // Store the offset so the icon doesn't "jump" to the cursor corner
-            const offsetX = e.clientX - rect.left;
-            const offsetY = e.clientY - rect.top;
-            e.dataTransfer.setData("text/plain", `${id},${offsetX},${offsetY}`);
+            e.dataTransfer.setData("text/plain", id);
         });
     });
 
-    // 3. Desktop Drop Logic
-    desktop.addEventListener('dragover', (e) => {
-        e.preventDefault(); // Required to allow a drop
-    });
+    // 2. Snap to Grid Logic on Drop
+    desktop.addEventListener('dragover', (e) => e.preventDefault());
 
     desktop.addEventListener('drop', (e) => {
         e.preventDefault();
-        const data = e.dataTransfer.getData("text/plain").split(',');
-        const id = data[0];
-        const offsetX = parseInt(data[1]);
-        const offsetY = parseInt(data[2]);
-
+        const id = e.dataTransfer.getData("text/plain");
         const icon = document.getElementById(id);
-        
-        // Calculate new position
-        const newLeft = (e.clientX - offsetX) + 'px';
-        const newTop = (e.clientY - offsetY) + 'px';
+
+        // Calculate nearest grid point
+        const snapX = Math.round((e.clientX - 50) / gridSize) * gridSize;
+        const snapY = Math.round((e.clientY - 50) / gridSize) * gridSize;
+
+        const newLeft = snapX + 'px';
+        const newTop = snapY + 'px';
 
         icon.style.left = newLeft;
         icon.style.top = newTop;
 
-        // 4. Save position to LocalStorage
+        // Save position
         savedPositions[id] = { left: newLeft, top: newTop };
-        localStorage.setItem('xpIconPositions', JSON.stringify(savedPositions));
+        localStorage.setItem('gridPositions', JSON.stringify(savedPositions));
     });
 
-    // Simple Clock logic for system tray
-    function updateClock() {
-        const now = new Date();
+    // 3. Toggle Visibility (The "Show/Hide" feature)
+    toggleBtn.addEventListener('click', () => {
+        icons.forEach(icon => icon.classList.toggle('hidden'));
+    });
+
+    // Clock
+    setInterval(() => {
         const clock = document.querySelector('.clock');
-        if(clock) clock.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+        if(clock) clock.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }, 1000);
 });

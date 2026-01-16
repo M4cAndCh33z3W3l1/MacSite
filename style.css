@@ -1,54 +1,39 @@
-/* Basic CSS Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Tahoma', sans-serif; overflow: hidden; }
 
-body {
-    font-family: 'Tahoma', sans-serif;
-    overflow: hidden;
-}
-
-/* The main desktop area */
 .desktop {
     width: 100vw;
     height: calc(100vh - 40px);
-    /* Classic XP Bliss Wallpaper */
-    background-image: url('https://upload.wikimedia.org');
-    background-size: cover;
-    background-position: center;
-    position: relative; /* Necessary for absolute icon positioning */
+    /* Background is now a solid dark color instead of the XP image */
+    background-color: #000000; 
+    position: relative;
 }
 
-/* Icons */
 .icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80px;
+    width: 100px; /* Grid width */
+    height: 100px; /* Grid height */
     cursor: move;
     text-align: center;
     color: white;
     text-shadow: 1px 1px #000;
     user-select: none;
-    position: absolute; /* Allows manual movement */
-    padding: 5px;
+    position: absolute;
+    padding: 10px;
+    transition: opacity 0.3s ease;
 }
 
-.icon img {
-    width: 42px;
-    height: 42px;
-    margin-bottom: 5px;
-    pointer-events: none; /* Prevents image dragging from breaking the div drag */
+/* Class to hide icons */
+.icon.hidden {
+    display: none;
 }
 
-.icon span {
-    font-size: 0.75rem;
-    word-wrap: break-word;
-}
+.icon img { width: 42px; height: 42px; pointer-events: none; }
+.icon span { font-size: 0.75rem; margin-top: 5px; }
 
-/* Taskbar (Unchanged per request) */
+/* Taskbar remains unchanged */
 .taskbar {
     height: 40px;
     background: linear-gradient(to right, #0a246a, #a6c9e2);
@@ -73,6 +58,4 @@ body {
     padding: 4px 10px;
     height: 32px;
     cursor: pointer;
-    box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4) inset;
-    text-shadow: 1px 1px #000;
 }

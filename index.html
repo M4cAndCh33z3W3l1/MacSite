@@ -3,52 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My XP Desktop</title>
+    <title>Grid XP Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="desktop">
-        <!-- Icons with unique IDs for saving position -->
-        <div class="icon" id="explorer-icon" draggable="true">
-            <img src="https://win98icons.alexmeub.com" alt="Internet Explorer">
-            <span>Internet Explorer</span>
+        <!-- Icons start as hidden -->
+        <div class="icon hidden" id="explorer-icon" draggable="true">
+            <img src="https://win98icons.alexmeub.com" alt="IE">
+            <span>Explorer</span>
         </div>
 
-        <div class="icon" id="settings-icon" draggable="true">
+        <div class="icon hidden" id="settings-icon" draggable="true">
             <img src="https://win98icons.alexmeub.com" alt="Settings">
-            <span>Control Panel</span>
+            <span>Settings</span>
         </div>
 
-        <div class="icon" id="paint-icon" draggable="true">
+        <div class="icon hidden" id="paint-icon" draggable="true">
             <img src="https://win98icons.alexmeub.com" alt="Paint">
             <span>Paint</span>
         </div>
 
-        <!-- Sample Window -->
-        <div class="window" id="about-window">
-            <div class="title-bar">
-                <div class="title-bar-text">About This Project</div>
-                <div class="title-bar-controls">
-                    <button aria-label="Minimize"></button>
-                    <button aria-label="Maximize"></button>
-                    <button aria-label="Close"></button>
-                </div>
-            </div>
-            <div class="window-body">
-                <p>Welcome to my recreation of the Windows XP desktop!</p>
-            </div>
-        </div>
-
-        <!-- Taskbar -->
         <div class="taskbar">
-            <button class="start-button">Start</button>
+            <!-- Start button now toggles icon visibility -->
+            <button class="start-button" id="toggle-icons">Start</button>
             <div class="taskbar-icons"></div>
-            <div class="system-tray">
-                <span class="clock"></span>
-            </div>
+            <div class="system-tray"><span class="clock"></span></div>
         </div>
     </div>
-
     <script src="main.js"></script>
 </body>
 </html>
