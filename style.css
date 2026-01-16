@@ -1,73 +1,76 @@
-body, html {
+/* Basic CSS Reset */
+* {
     margin: 0;
     padding: 0;
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: white;
+    box-sizing: border-box; /* Makes padding/border included in element's width/height */
 }
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Hide scrollbars, it's a desktop */
+}
+
+/* The main desktop area */
 .desktop {
-    /* A common macOS gradient color */
-    background: linear-gradient(to bottom right, #4a74a1, #7c9ec4);
-    height: 100%;
-    position: relative;
-    padding: 20px; /* More padding for icons */
+    width: 100vw;
+    height: calc(100vh - 40px); /* Full screen height minus taskbar height */
+    background-image: url('images/wallpaper.jpg'); /* You need this image file */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.taskbar {
+    height: 40px; /* Standard XP taskbar height */
+    background: linear-gradient(to right, #0a246a, #a6c9e2); /* XP Blue Gradient */
+    border-top: 1px solid #fff;
+    display: flex;
+    justify-content: space-between; /* Pushes start button to left, clock to right */
+    align-items: center;
+    padding: 0 4px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.start-button {
+    background: linear-gradient(to bottom, #3c7d1c, #4a8d29); /* XP Green Gradient */
+    border: 1px solid #000;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    padding: 4px 10px;
+    height: 32px;
+    cursor: pointer;
+    box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4) inset;
+    text-shadow: 1px 1px #000;
 }
 
-/* Icons are now lighter */
+.start-button:hover {
+    background: linear-gradient(to bottom, #4a8d29, #3c7d1c);
+}
+/* Styling for the individual icon containers */
 .icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
-    width: 80px;
+    width: 80px; /* Width to center text nicely */
+    margin: 10px;
+    cursor: pointer;
     text-align: center;
-    cursor: pointer;
+    color: white; /* XP desktop text is white by default */
+    text-shadow: 1px 1px #000; /* Makes text readable against wallpaper */
+    user-select: none; /* Prevents text selection when clicking */
 }
 
+/* Styling for the icon images themselves */
 .icon img {
-    width: 50px; /* Slightly larger icons */
-    height: 50px;
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    width: 40px; /* Standard size for XP icons */
+    height: 40px;
+    margin-bottom: 5px;
 }
 
+/* Styling for the text label beneath the icon */
 .icon span {
-    font-size: 0.8em;
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
-    margin-top: 8px;
-}
-
-/* The Dock */
-.dock-container {
-    position: absolute;
-    bottom: 15px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.dock {
-    background: rgba(200, 200, 200, 0.4); /* Translucent background */
-    backdrop-filter: blur(10px); /* Glassmorphism effect */
-    border-radius: 15px;
-    padding: 8px 10px;
-    display: flex;
-    gap: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dock-icon {
-    width: 45px;
-    height: 45px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    border-radius: 10px;
-}
-
-.dock-icon:hover {
-    transform: scale(1.2); /* Jiggle effect on hover */
+    font-size: 0.8rem;
+    word-wrap: break-word;
 }

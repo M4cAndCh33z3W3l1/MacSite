@@ -1,38 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>macOS Desktop</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="desktop">
-        <!-- Icons Section -->
-        <div class="icon">
-            <img src="https://via.placeholder.com" alt="Welcome Icon">
-            <span>Welcome</span>
-        </div>
-        <div class="icon">
-            <img src="https://via.placeholder.com" alt="Explorer Icon">
-            <span>Finder</span>
-        </div>
-        <div class="icon">
-            <img src="https://via.placeholder.com" alt="Settings Icon">
-            <span>System Settings</span>
-        </div>
-        <!-- Add more icons as needed -->
+    <!-- Explorer Icon -->
+    <div class="icon" id="explorer-icon">
+        <img src="images/explorer.png" alt="Internet Explorer">
+        <span>Explorer</span>
     </div>
 
-    <!-- The Dock -->
-    <div class="dock-container">
-        <div class="dock">
-            <!-- Dock Icons -->
-            <img src="https://via.placeholder.com?text=F" alt="Finder" class="dock-icon">
-            <img src="https://via.placeholder.com?text=S" alt="Safari" class="dock-icon">
-            <img src="https://via.placeholder.com?text=M" alt="Mail" class="dock-icon">
-            <img src="https://via.placeholder.com?text=S" alt="Settings" class="dock-icon">
+    <!-- Settings Icon -->
+    <div class="icon" id="settings-icon">
+        <img src="images/settings.png" alt="Settings">
+        <span>Settings</span>
+    </div>
+    
+    <!-- Paint Icon -->
+    <div class="icon" id="paint-icon">
+        <img src="images/paint.png" alt="Paint">
+        <span>Paint</span>
+    </div>
+    
+    <!-- You will style these icons using CSS later -->
+    <!-- A sample window container (initially hidden by CSS) -->
+    <div class="window" id="about-window">
+        <div class="title-bar">
+            <div class="title-bar-text">About This Project</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p>Welcome to my recreation of the Windows XP desktop!</p>
         </div>
     </div>
-</body>
-</html>
