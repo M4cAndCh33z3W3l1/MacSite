@@ -3,32 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulletproof XP Desktop</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Embedded XP Desktop</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tahoma', sans-serif; overflow: hidden; height: 100vh; }
+
+        /* Background Gradient (Simulates Bliss) */
+        .desktop {
+            width: 100vw;
+            height: calc(100vh - 40px);
+            background: linear-gradient(to bottom, #74b9ff 0%, #a29bfe 50%, #55efc4 100%);
+            position: relative;
+        }
+
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            cursor: move;
+            position: absolute;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px #000;
+            padding: 10px;
+        }
+
+        /* Drawing Icons with pure CSS */
+        .icon-img { width: 40px; height: 40px; margin-bottom: 5px; border-radius: 4px; }
+        .explorer { background: #0984e3; border: 3px solid #fff; }
+        .computer { background: #636e72; border-bottom: 6px solid #2d3436; }
+        .paint    { background: #e17055; border-radius: 50%; }
+
+        .icon span { font-size: 0.75rem; font-weight: bold; pointer-events: none; }
+
+        .taskbar {
+            height: 40px;
+            background: linear-gradient(to right, #2463de, #3a8cff);
+            border-top: 2px solid #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .start-button {
+            background: linear-gradient(to bottom, #3c7d1c, #4a8d29);
+            border: 1px solid #000;
+            border-radius: 0 10px 10px 0;
+            color: white;
+            font-weight: bold;
+            padding: 4px 20px;
+            height: 34px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="desktop">
-        <!-- Icons with built-in data strings -->
-        <div class="icon" id="explorer-icon" draggable="true">
+        <div class="icon" id="explorer-icon" draggable="true" style="top:20px; left:20px;">
             <div class="icon-img explorer"></div>
-            <span>Internet Explorer</span>
+            <span>Explorer</span>
         </div>
-
-        <div class="icon" id="computer-icon" draggable="true">
+        <div class="icon" id="computer-icon" draggable="true" style="top:120px; left:20px;">
             <div class="icon-img computer"></div>
             <span>My Computer</span>
         </div>
-
-        <div class="icon" id="paint-icon" draggable="true">
+        <div class="icon" id="paint-icon" draggable="true" style="top:220px; left:20px;">
             <div class="icon-img paint"></div>
             <span>Paint</span>
         </div>
 
         <div class="taskbar">
             <button class="start-button">Start</button>
-            <div class="system-tray"><span class="clock"></span></div>
+            <div class="system-tray"><span class="clock" style="color:white; font-size:0.8rem;"></span></div>
         </div>
     </div>
-    <script src="main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const icons = document.querySelectorAll('.icon');
+            const desktop = document.querySelector('.desktop');
+            const gridSize = 100;
+
+            // Load saved positions
+            const saved = JSON.parse(localStorage.getItem('xpGrid')) || {};
+            icons.forEach(icon => {
+                if (saved[icon.id]) {
+                    icon.style.left = saved[icon.id].left;
+                    icon.style.top = saved[icon.id].top;
+                }
+                icon.addEventListener('dragstart', (e) => e.dataTransfer.setData("text/plain", icon.id));
+            });
+
+            desktop.addEventListener('dragover', (e) => e.preventDefault());
+            desktop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const id = e.dataTransfer.getData("text/plain");
+                const icon = document.getElementById(id);
+                const x = Math.round((e.clientX - 50) / gridSize) * gridSize;
+                const y = Math.round((e.clientY - 50) / gridSize) * gridSize;
+                icon.style.left = x + 'px';
+                icon.style.top = y + 'px';
+                saved[id] = { left: icon.style.left, top: icon.style.top };
+                localStorage.setItem('xpGrid', JSON.stringify(saved));
+            });
+
+            setInterval(() => {
+                document.querySelector('.clock').innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
