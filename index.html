@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulletproof XP Desktop</title>
+    <title>Mac Site</title>
+    <!-- Include the XP.css library -->
+    <link rel="stylesheet" href="https://unpkg.com/xp.css">
+    <!-- Link your custom stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- This is where your desktop icons will go -->
     <div class="desktop">
-        <!-- Icons with built-in data strings -->
-        <div class="icon" id="explorer-icon" draggable="true">
-            <div class="icon-img explorer"></div>
-            <span>Internet Explorer</span>
-        </div>
+        <!-- Example Icon structure -->
+        <a href="#" class="desktop-icon" id="explorer">
+            <!-- You will need to add images for icons here -->
+            <img src="path/to/explorer-icon.png" alt="Explorer">
+            <span>Explorer</span>
+        </a>
+        
+        <!-- Add other icons (Beanshell, Settings, FireBean, Paint) here -->
 
-        <div class="icon" id="computer-icon" draggable="true">
-            <div class="icon-img computer"></div>
-            <span>My Computer</span>
-        </div>
-
-        <div class="icon" id="paint-icon" draggable="true">
-            <div class="icon-img paint"></div>
-            <span>Paint</span>
-        </div>
-
-        <div class="taskbar">
-            <button class="start-button">Start</button>
-            <div class="system-tray"><span class="clock"></span></div>
-        </div>
     </div>
+
+    <!-- Taskbar and Start Button -->
+    <div class="taskbar">
+        <button class="start-button">Start</button>
+        <!-- Taskbar icons and clock would go here -->
+    </div>
+
+    <!-- Link your main JavaScript file -->
     <script src="main.js"></script>
 </body>
 </html>
