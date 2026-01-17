@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const icons = document.querySelectorAll('.icon');
     const desktop = document.querySelector('.desktop');
-    const gridSize = 100; 
+    const gridSize = 100;
 
-    // Load positions
-    const savedPositions = JSON.parse(localStorage.getItem('xpGridPositions')) || {};
+    const savedPositions = JSON.parse(localStorage.getItem('xpGrid')) || {};
 
     icons.forEach((icon, index) => {
         const id = icon.id;
@@ -12,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.style.left = savedPositions[id].left;
             icon.style.top = savedPositions[id].top;
         } else {
-            icon.style.left = '0px';
-            icon.style.top = (index * gridSize) + 'px';
+            icon.style.left = '10px';
+            icon.style.top = (10 + (index * gridSize)) + 'px';
         }
 
         icon.addEventListener('dragstart', (e) => {
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = e.dataTransfer.getData("text/plain");
         const icon = document.getElementById(id);
 
-        // Grid snap calculation
         const snapX = Math.round((e.clientX - 50) / gridSize) * gridSize;
         const snapY = Math.round((e.clientY - 50) / gridSize) * gridSize;
 
@@ -36,12 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.style.top = snapY + 'px';
 
         savedPositions[id] = { left: icon.style.left, top: icon.style.top };
-        localStorage.setItem('xpGridPositions', JSON.stringify(savedPositions));
+        localStorage.setItem('xpGrid', JSON.stringify(savedPositions));
     });
 
-    // Clock
+    // Clock Logic
     setInterval(() => {
-        const clock = document.querySelector('.clock');
-        if(clock) clock.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        document.querySelector('.clock').innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }, 1000);
 });
