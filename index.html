@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link-Based Draggable Desktop</title>
+    <title>OS Interface</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="desktop">
-        <!-- Double-click the image to paste a new link -->
-        <div class="icon" style="left: 50px; top: 50px;">
+        <div class="icon" style="left: 20px; top: 20px;">
             <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Documents</span>
+            <span class="icon-label" contenteditable="true">Files</span>
         </div>
 
-        <div class="icon" style="left: 170px; top: 50px;">
+        <div class="icon" style="left: 20px; top: 120px;">
             <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Browser</span>
+            <span class="icon-label" contenteditable="true">Web</span>
         </div>
+    </div>
+
+    <!-- Computer Taskbar -->
+    <div id="taskbar">
+        <div class="start-btn">⊞</div>
+        <div class="taskbar-icons">
+            <img src="https://img.icons8.com">
+            <img src="https://img.icons8.com">
+        </div>
+        <div class="system-tray">9:41 PM</div>
     </div>
 
     <script src="main.js"></script>
