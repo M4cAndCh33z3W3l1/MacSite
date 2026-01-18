@@ -1,6 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
+    /* This link should work universally: */
     background-image: url("https://upload.wikimedia.org");
     background-size: cover;
     background-position: center;
@@ -15,21 +16,20 @@ body {
 }
 
 .icon {
-    position: absolute; /* This is crucial for absolute positioning by JS */
+    position: absolute;
     width: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: grab;
     padding: 5px;
-    /* Added transition here to make the snap smooth */
     transition: all 0.2s ease-out; 
 }
 
 .icon-img {
     width: 48px;
     height: 48px;
-    pointer-events: none;
+    pointer-events: none; /* Allows dragging through the image */
 }
 
 .icon-label {
@@ -41,7 +41,6 @@ body {
     outline: none;
 }
 
-/* Windows XP Taskbar Styles remain the same */
-#taskbar { /* ... styles omitted for brevity ... */ }
-.start-btn { /* ... styles omitted for brevity ... */ }
-.system-tray { /* ... styles omitted for brevity ... */ }
+/* Taskbar styles remain the same */
+#taskbar { /* ... */ background: #2f71cd; /* ... */ }
+.start-btn { /* ... */ background: #3a973a; /* ... */ }
