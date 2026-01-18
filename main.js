@@ -2,7 +2,6 @@ const icons = document.querySelectorAll('.icon');
 const GRID_SIZE = 100;
 const SNAP_OFFSET = 10; 
 
-// Function to update the clock using user's local time
 function updateClock() {
     const now = new Date();
     const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -14,7 +13,6 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 60000); 
 
-// Function to calculate the correct snapped position
 function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY) {
     const targetLeft = clientX - offsetX;
     const targetTop = clientY - offsetY;

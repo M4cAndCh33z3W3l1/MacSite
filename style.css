@@ -1,7 +1,6 @@
 body {
     margin: 0;
     overflow: hidden;
-    /* Direct link to the 'Bliss' wallpaper, confirmed to work */
     background-image: url("https://upload.wikimedia.org");
     background-size: cover;
     background-position: center;
@@ -50,7 +49,6 @@ body {
     background: #2f71cd; /* XP Blue */
     display: flex;
     align-items: center;
-    /* Ensures items align start/end */
     justify-content: space-between; 
     box-sizing: border-box;
     z-index: 2000;
