@@ -3,22 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MacSite</title>
+    <title>BeOS Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="main-body">
     <div id="desktop">
-        <!-- The link is kept exactly as you requested in the 'data-link' attribute -->
-        <div class="icon" style="left: 100px; top: 100px;" data-link="https://commons.wikimedia.org">
+        <!-- Icons positioned roughly like in the image -->
+        <div class="icon" style="left: 20px; top: 20px;">
             <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Eaglercraft</span>
+            <span class="icon-label" contenteditable="true">Beancioak</span>
+        </div>
+        <div class="icon" style="left: 20px; top: 120px;">
+            <img src="https://img.icons8.com" class="icon-img">
+            <span class="icon-label" contenteditable="true">Beanpowe red</span>
+        </div>
+        <div class="icon" style="left: 20px; top: 220px;">
+            <img src="https://img.icons8.com" class="icon-img">
+            <span class="icon-label" contenteditable="true">Explorer</span>
+        </div>
+        <div class="icon" style="left: 20px; top: 320px;">
+            <img src="https://img.icons8.com" class="icon-img">
+            <span class="icon-label" contenteditable="true">Beanshell</span>
+        </div>
+        <div class="icon" style="left: 20px; top: 420px;">
+            <img src="https://img.icons8.com" class="icon-img">
+            <span class="icon-label" contenteditable="true">Settings</span>
+        </div>
+        <div class="icon" style="left: 20px; top: 520px;">
+            <img src="https://img.icons8.com" class="icon-img">
+            <span class="icon-label" contenteditable="true">FireBean</span>
+        </div>
+        <div class="icon" style="left: 20px; top: 620px;">
+            <img src="https://img.icons8.com" class="icon-img">
+            <span class="icon-label" contenteditable="true">Paint</span>
         </div>
     </div>
 
-    <!-- Taskbar for the "computer" feel -->
+    <!-- Computer Taskbar -->
     <div id="taskbar">
-        <div class="start-btn">⊞</div>
-        <div class="system-tray">9:41 PM</div>
+        <div class="start-btn">Start</div>
+        <div class="system-tray" id="clock">9:41 PM</div>
     </div>
 
     <script src="main.js"></script>
