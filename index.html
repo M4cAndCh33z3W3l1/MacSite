@@ -3,46 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeOS Desktop</title>
+    <title>Mac Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body id="main-body">
     <div id="desktop">
-        <!-- Icons positioned roughly like in the image -->
+        <!-- Icons are now initially aligned to the grid (20px left, 20/120/220 top) -->
         <div class="icon" style="left: 20px; top: 20px;">
             <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Beancioak</span>
+            <span class="icon-label" contenteditable="true">Mac_Craft</span>
         </div>
         <div class="icon" style="left: 20px; top: 120px;">
             <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Beanpowe red</span>
+            <span class="icon-label" contenteditable="true">Mac_Files</span>
         </div>
         <div class="icon" style="left: 20px; top: 220px;">
             <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Explorer</span>
-        </div>
-        <div class="icon" style="left: 20px; top: 320px;">
-            <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Beanshell</span>
-        </div>
-        <div class="icon" style="left: 20px; top: 420px;">
-            <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Settings</span>
-        </div>
-        <div class="icon" style="left: 20px; top: 520px;">
-            <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">FireBean</span>
-        </div>
-        <div class="icon" style="left: 20px; top: 620px;">
-            <img src="https://img.icons8.com" class="icon-img">
-            <span class="icon-label" contenteditable="true">Paint</span>
+            <span class="icon-label" contenteditable="true">Mac_Shell</span>
         </div>
     </div>
 
     <!-- Computer Taskbar -->
     <div id="taskbar">
         <div class="start-btn">Start</div>
-        <div class="system-tray" id="clock">9:41 PM</div>
+        <!-- Clock element with an ID -->
+        <div class="system-tray" id="clock"></div> 
     </div>
 
     <script src="main.js"></script>

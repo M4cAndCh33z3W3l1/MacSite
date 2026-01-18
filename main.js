@@ -1,11 +1,23 @@
 const icons = document.querySelectorAll('.icon');
-const gridSize = 100; // Snaps every 100px
+const gridSize = 100;
 
+// Function to update the clock dynamically
+function updateClock() {
+    const now = new Date();
+    // Use user's local time formatting
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('clock').textContent = timeString;
+}
+
+// Update clock immediately and then every minute
+updateClock();
+setInterval(updateClock, 60000); 
+
+// --- DRAGGING & SNAPPING LOGIC (Remains the same) ---
 icons.forEach(icon => {
     let isDragging = false;
     let offsetX, offsetY;
 
-    // Start Dragging
     icon.addEventListener('mousedown', (e) => {
         if (e.target.contentEditable === "true") return;
         isDragging = true;
@@ -16,14 +28,12 @@ icons.forEach(icon => {
         icon.style.transition = "none";
     });
 
-    // During Dragging
     window.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
         icon.style.left = `${e.clientX - offsetX}px`;
         icon.style.top = `${e.clientY - offsetY}px`;
     });
 
-    // Stop Dragging and Snap to Grid
     window.addEventListener('mouseup', () => {
         if (!isDragging) return;
         isDragging = false;
@@ -32,7 +42,6 @@ icons.forEach(icon => {
         const left = parseInt(icon.style.left);
         const top = parseInt(icon.style.top);
         
-        // Ensure minimum 10px offset from the left edge
         const snappedLeft = Math.max(10, Math.round(left / gridSize) * gridSize);
         const snappedTop = Math.max(10, Math.round(top / gridSize) * gridSize);
 
