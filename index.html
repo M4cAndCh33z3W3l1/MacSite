@@ -1,10 +1,25 @@
-<style>
-  body {
-    background-image: url("https://wallpapercave.com/wp/wp5493583.jpg");
-    background-size: cover;      /* Makes image fill the whole screen */
-    background-position: center;  /* Centers the image */
-    background-attachment: fixed; /* Keeps background still while scrolling */
-    background-repeat: no-repeat; /* Prevents tiling */
-  }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link-Based Draggable Desktop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="desktop">
+        <!-- Double-click the image to paste a new link -->
+        <div class="icon" style="left: 50px; top: 50px;">
+            <img src="https://img.icons8.com" class="icon-img">
+            <span class="icon-label" contenteditable="true">Documents</span>
+        </div>
 
+        <div class="icon" style="left: 170px; top: 50px;">
+            <img src="https://img.icons8.com" class="icon-img">
+            <span class="icon-label" contenteditable="true">Browser</span>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

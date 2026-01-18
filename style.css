@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-image: url("https://wallpapercave.com");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#desktop {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.icon:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.icon-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    pointer-events: none; /* Helps with dragging */
+}
+
+.icon-label {
+    color: white;
+    font-size: 13px;
+    margin-top: 8px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    text-align: center;
+    width: 100%;
+    outline: none;
+}
+
+.icon:active { cursor: grabbing; }
