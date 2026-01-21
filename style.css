@@ -72,3 +72,9 @@ body {
     font-size: 11px;
     padding-right: 15px;
 }
+
+/* Prevents users from highlighting text */
+body {
+    user-select: none; 
+    -webkit-user-select: none;
+}
