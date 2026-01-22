@@ -8,7 +8,7 @@ const okBtn = document.getElementById('ok-btn');
 const GRID_SIZE = 100;
 const SNAP_OFFSET = 10; 
 
-// --- Clock Logic ---
+// Clock
 function updateClock() {
     const now = new Date();
     const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -18,34 +18,28 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 60000); 
 
-// --- Window Logic ---
+// Window logic with animation reset
 function openApp(appName) {
-    appWindow.style.display = 'block';
-    appWindow.style.left = '150px';
-    appWindow.style.top = '100px';
-    
-    if(appName === 'maccraft') {
-        windowTitle.innerText = "MacCraft";
-        windowContent.innerText = "Loading MacCraft assets... Please wait.";
-    } else {
-        windowTitle.innerText = "Settings";
-        windowContent.innerText = "Control Panel: System settings are currently locked.";
-    }
+    appWindow.style.display = 'none'; // Brief reset for animation
+    setTimeout(() => {
+        appWindow.style.display = 'block';
+        appWindow.style.left = '150px';
+        appWindow.style.top = '100px';
+        
+        if(appName === 'maccraft') {
+            windowTitle.innerText = "MacCraft";
+            windowContent.innerText = "Loading MacCraft assets... Please wait.";
+        } else {
+            windowTitle.innerText = "Settings";
+            windowContent.innerText = "Control Panel: System settings are locked.";
+        }
+    }, 10);
 }
 
 closeBtn.onclick = () => appWindow.style.display = 'none';
 okBtn.onclick = () => appWindow.style.display = 'none';
 
-// --- Icon Movement & Double Click ---
-function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY) {
-    const targetLeft = clientX - offsetX;
-    const targetTop = clientY - offsetY;
-    const snappedLeft = Math.round(targetLeft / GRID_SIZE) * GRID_SIZE;
-    const snappedTop = Math.round(targetTop / GRID_SIZE) * GRID_SIZE;
-    icon.style.left = `${Math.max(SNAP_OFFSET, snappedLeft)}px`;
-    icon.style.top = `${Math.max(SNAP_OFFSET, snappedTop)}px`;
-}
-
+// Icon dragging and dblclick
 icons.forEach((icon, index) => {
     let isDragging = false;
     let offsetX = 0, offsetY = 0;
@@ -62,10 +56,8 @@ icons.forEach((icon, index) => {
         icon.style.transition = "none";
     });
 
-    // OPEN WINDOW ON DOUBLE CLICK
     icon.addEventListener('dblclick', () => {
-        const app = icon.getAttribute('data-app');
-        openApp(app);
+        openApp(icon.getAttribute('data-app'));
     });
 
     window.addEventListener('mousemove', (e) => {
@@ -79,6 +71,12 @@ icons.forEach((icon, index) => {
         isDragging = false;
         icon.style.zIndex = "";
         icon.style.transition = "all 0.2s ease-out"; 
-        snapIconToGrid(icon, e.clientX, e.clientY, offsetX, offsetY);
+        
+        const targetLeft = e.clientX - offsetX;
+        const targetTop = e.clientY - offsetY;
+        const snappedLeft = Math.round(targetLeft / GRID_SIZE) * GRID_SIZE;
+        const snappedTop = Math.round(targetTop / GRID_SIZE) * GRID_SIZE;
+        icon.style.left = `${Math.max(SNAP_OFFSET, snappedLeft)}px`;
+        icon.style.top = `${Math.max(SNAP_OFFSET, snappedTop)}px`;
     });
 });

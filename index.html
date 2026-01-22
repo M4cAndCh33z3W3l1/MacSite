@@ -9,20 +9,18 @@
 </head>
 <body id="main-body">
     <div id="desktop">
-        <!-- Minecraft Icon -->
         <div class="icon" data-app="maccraft">
             <img src="https://iili.io" class="icon-img" alt="Minecraft Icon">
             <span class="icon-label">MacCraft</span>
         </div>
         
-        <!-- Settings Icon -->
         <div class="icon" data-app="settings">
             <img src="https://iili.io" class="icon-img" alt="Settings Icon">
             <span class="icon-label">Settings</span>
         </div>
 
-        <!-- Pop-up Window (Hidden by default) -->
-        <div id="app-window" class="window" style="display: none; position: absolute; width: 300px; z-index: 3000;">
+        <!-- The "Window" with the animation class -->
+        <div id="app-window" class="window window-animated" style="display: none; position: absolute; width: 300px; z-index: 3000;">
             <div class="title-bar">
                 <div class="title-bar-text" id="window-title">Settings</div>
                 <div class="title-bar-controls">
