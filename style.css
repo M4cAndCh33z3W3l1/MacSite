@@ -74,18 +74,24 @@ body {
 }
 
 /* SMOOTH OPENING ANIMATION */
-.window-animated {
+.window {
     box-shadow: 2px 2px 20px rgba(0,0,0,0.4);
-    animation: openWindow 0.2s ease-out forwards;
+    /* Make the window appear above the taskbar */
+    z-index: 1001; 
 }
 
-@keyframes openWindow {
+.window-animated {
+    animation: slideUp 0.3s ease-out forwards;
+}
+
+/* The 'pop up from bottom' animation */
+@keyframes slideUp {
     0% {
-        transform: scale(0.7);
+        transform: translateY(100px) scale(0.9);
         opacity: 0;
     }
     100% {
-        transform: scale(1);
+        transform: translateY(0px) scale(1);
         opacity: 1;
     }
 }

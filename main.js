@@ -1,14 +1,11 @@
 const icons = document.querySelectorAll('.icon');
-const appWindow = document.getElementById('app-window');
-const windowTitle = document.getElementById('window-title');
-const windowContent = document.getElementById('window-content');
-const closeBtn = document.getElementById('close-btn');
-const okBtn = document.getElementById('ok-btn');
+const desktop = document.getElementById('desktop');
+let highestZIndex = 1001; // Start above taskbar
 
 const GRID_SIZE = 100;
 const SNAP_OFFSET = 10; 
 
-// Clock
+// Clock Logic
 function updateClock() {
     const now = new Date();
     const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -18,28 +15,100 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 60000); 
 
-// Window logic with animation reset
-function openApp(appName) {
-    appWindow.style.display = 'none'; // Brief reset for animation
-    setTimeout(() => {
-        appWindow.style.display = 'block';
-        appWindow.style.left = '150px';
-        appWindow.style.top = '100px';
-        
-        if(appName === 'maccraft') {
-            windowTitle.innerText = "MacCraft";
-            windowContent.innerText = "Loading MacCraft assets... Please wait.";
-        } else {
-            windowTitle.innerText = "Settings";
-            windowContent.innerText = "Control Panel: System settings are locked.";
-        }
-    }, 10);
+// Window Management Logic
+function createWindow(appName, title, content) {
+    const windowEl = document.createElement('div');
+    // We use a random ID because we can have multiple windows
+    const windowId = `window-${Date.now()}`; 
+    windowEl.id = windowId;
+    windowEl.className = 'window window-animated';
+    windowEl.style.cssText = `position: absolute; width: 300px; left: ${150 + Math.random() * 50}px; top: ${100 + Math.random() * 50}px;`;
+
+    windowEl.innerHTML = `
+        <div class="title-bar">
+            <div class="title-bar-text">${title}</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close" class="close-window-btn"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p>${content}</p>
+            <section class="field-row" style="justify-content: flex-end">
+                <button class="close-window-btn">OK</button>
+            </section>
+        </div>
+    `;
+
+    desktop.appendChild(windowEl);
+    makeWindowDraggable(windowEl);
+
+    // Add close event listeners dynamically
+    windowEl.querySelectorAll('.close-window-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            windowEl.style.display = 'none';
+            windowEl.remove(); // Clean up the element from the DOM
+        });
+    });
+
+    // Bring to front when clicked anywhere inside
+    windowEl.addEventListener('mousedown', () => {
+        highestZIndex++;
+        windowEl.style.zIndex = highestZIndex;
+    });
 }
 
-closeBtn.onclick = () => appWindow.style.display = 'none';
-okBtn.onclick = () => appWindow.style.display = 'none';
+function openApp(appName) {
+    if (appName === 'maccraft') {
+        createWindow('maccraft', 'MacCraft', 'Loading MacCraft assets... Please wait.');
+    } else if (appName === 'settings') {
+        createWindow('settings', 'Settings', 'Control Panel: System settings are locked.');
+    }
+}
 
-// Icon dragging and dblclick
+// Draggable Windows Logic (Modified from icon drag logic)
+function makeWindowDraggable(windowElement) {
+    const titleBar = windowElement.querySelector('.title-bar');
+    let isDragging = false;
+    let offsetX = 0, offsetY = 0;
+
+    titleBar.addEventListener('mousedown', (e) => {
+        // Prevents dragging if clicking on control buttons
+        if (e.target.tagName === 'BUTTON') return; 
+        isDragging = true;
+        const rect = windowElement.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        highestZIndex++;
+        windowElement.style.zIndex = highestZIndex;
+        windowElement.style.transition = "none";
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        windowElement.style.left = `${e.clientX - offsetX}px`;
+        windowElement.style.top = `${e.clientY - offsetY}px`;
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        windowElement.style.transition = ""; 
+    });
+}
+
+
+// Icon Dragging and Double Click Logic
+function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY) {
+    const targetLeft = clientX - offsetX;
+    const targetTop = clientY - offsetY;
+    const snappedLeft = Math.round(targetLeft / GRID_SIZE) * GRID_SIZE;
+    const snappedTop = Math.round(targetTop / GRID_SIZE) * GRID_SIZE;
+    icon.style.left = `${Math.max(SNAP_OFFSET, snappedLeft)}px`;
+    icon.style.top = `${Math.max(SNAP_OFFSET, snappedTop)}px`;
+}
+
 icons.forEach((icon, index) => {
     let isDragging = false;
     let offsetX = 0, offsetY = 0;

@@ -9,37 +9,24 @@
 </head>
 <body id="main-body">
     <div id="desktop">
+        <!-- Minecraft Icon -->
         <div class="icon" data-app="maccraft">
             <img src="https://iili.io" class="icon-img" alt="Minecraft Icon">
             <span class="icon-label">MacCraft</span>
         </div>
         
+        <!-- Settings Icon -->
         <div class="icon" data-app="settings">
             <img src="https://iili.io" class="icon-img" alt="Settings Icon">
             <span class="icon-label">Settings</span>
         </div>
-
-        <!-- The "Window" with the animation class -->
-        <div id="app-window" class="window window-animated" style="display: none; position: absolute; width: 300px; z-index: 3000;">
-            <div class="title-bar">
-                <div class="title-bar-text" id="window-title">Settings</div>
-                <div class="title-bar-controls">
-                    <button aria-label="Minimize"></button>
-                    <button aria-label="Maximize"></button>
-                    <button aria-label="Close" id="close-btn"></button>
-                </div>
-            </div>
-            <div class="window-body">
-                <p id="window-content">Welcome to the menu!</p>
-                <section class="field-row" style="justify-content: flex-end">
-                    <button id="ok-btn">OK</button>
-                </section>
-            </div>
-        </div>
+        
+        <!-- Windows will be injected here by main.js -->
     </div>
 
     <div id="taskbar">
         <div class="start-btn">Start</div>
+        <!-- Taskbar buttons for open windows will be injected here by main.js -->
         <div class="system-tray" id="clock"></div> 
     </div>
 
