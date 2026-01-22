@@ -49,10 +49,9 @@ body {
     background: #2f71cd;
     display: flex;
     align-items: center;
-    /* This was justify-content: space-between; I removed it to make room for app buttons */
     box-sizing: border-box;
     z-index: 2000;
-    padding-right: 15px; /* Added padding to right side for clock area */
+    padding-right: 15px; 
 }
 
 /* Container for all open application buttons */
@@ -62,6 +61,7 @@ body {
     height: 100%;
     padding-left: 10px;
     gap: 5px;
+    overflow: hidden; /* Keeps buttons from overflowing past the clock area */
 }
 
 /* Individual taskbar buttons */
@@ -69,18 +69,17 @@ body {
     background: #2f71cd;
     border: 1px solid #104a9d;
     color: white;
-    padding: 0 10px;
+    padding: 0 5px 0 10px; /* Adjusted padding for the close button */
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Pushes the 'X' to the right */
     cursor: pointer;
     box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.4), inset 0px -1px 1px rgba(0, 0, 0, 0.4);
     height: 80%;
     margin-top: auto;
     margin-bottom: auto;
     max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    flex-shrink: 1; /* Allows buttons to shrink if too many are open */
 }
 
 .taskbar-btn:hover {
@@ -88,11 +87,28 @@ body {
 }
 
 .taskbar-btn.active {
-    /* Mimics a 'pressed' state */
     background: #104a9d;
     box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.4), inset 0px -1px 1px rgba(255, 255, 255, 0.4);
 }
 
+.taskbar-btn-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none; /* Allows click events to pass through to the main button */
+}
+
+.taskbar-close-btn {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    line-height: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
 
 .start-btn {
     background: #3a973a;
@@ -110,7 +126,7 @@ body {
 .system-tray {
     color: white;
     font-size: 11px;
-    padding-left: 15px; /* Added padding here */
+    padding-left: 15px; 
 }
 
 /* SMOOTH OPENING ANIMATION */

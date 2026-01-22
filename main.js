@@ -96,22 +96,38 @@ function openApp(appName) {
     }
 }
 
-// Taskbar Button Logic
+// Taskbar Button Logic (Updated with 'X' button)
 function createTaskbarButton(windowEl, title) {
     const btn = document.createElement('div');
     btn.id = `taskbar-btn-${windowEl.id}`;
     btn.className = 'taskbar-btn active';
-    btn.innerText = title;
+
+    // Add label span (so clicks pass through when targeting the whole button)
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'taskbar-btn-label';
+    labelSpan.innerText = title;
+    btn.appendChild(labelSpan);
+
+    // Add close 'X' button
+    const closeX = document.createElement('span');
+    closeX.className = 'taskbar-close-btn';
+    closeX.innerText = '✕';
+    closeX.title = `Close ${title}`;
+    closeX.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevents the main button logic from triggering
+        closeWindow(windowEl);
+    });
+    btn.appendChild(closeX);
+
     taskbarApps.appendChild(btn);
 
+    // Main button click logic for minimize/restore/focus
     btn.addEventListener('click', () => {
         if (windowEl.style.display === 'none') {
             restoreWindow(windowEl);
         } else if (windowEl.style.zIndex === highestZIndex.toString()) {
-            // If already at front, minimize it
             minimizeWindow(windowEl);
         } else {
-            // If open but in background, bring to front
             bringWindowToFront(windowEl);
         }
     });
