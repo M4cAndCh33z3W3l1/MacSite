@@ -1,9 +1,6 @@
 const icons = document.querySelectorAll('.icon');
 const desktop = document.getElementById('desktop');
-let highestZIndex = 1001; // Start above taskbar
-
-const GRID_SIZE = 100;
-const SNAP_OFFSET = 10; 
+let highestZIndex = 1001; 
 
 // Clock Logic
 function updateClock() {
@@ -15,17 +12,23 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 60000); 
 
+// Z-Index Management
+function bringWindowToFront(windowEl) {
+    highestZIndex++;
+    windowEl.style.zIndex = highestZIndex;
+}
+
 // Window Management Logic
 function createWindow(appName, title, content) {
     const windowEl = document.createElement('div');
-    // We use a random ID because we can have multiple windows
     const windowId = `window-${Date.now()}`; 
     windowEl.id = windowId;
     windowEl.className = 'window window-animated';
+    // Add random offset so multiple windows don't stack perfectly on load
     windowEl.style.cssText = `position: absolute; width: 300px; left: ${150 + Math.random() * 50}px; top: ${100 + Math.random() * 50}px;`;
 
     windowEl.innerHTML = `
-        <div class="title-bar">
+        <div class="title-bar" style="cursor: grab;">
             <div class="title-bar-text">${title}</div>
             <div class="title-bar-controls">
                 <button aria-label="Minimize"></button>
@@ -42,24 +45,24 @@ function createWindow(appName, title, content) {
     `;
 
     desktop.appendChild(windowEl);
-    makeWindowDraggable(windowEl);
+    bringWindowToFront(windowEl); // Bring new window to front immediately
 
     // Add close event listeners dynamically
     windowEl.querySelectorAll('.close-window-btn').forEach(button => {
         button.addEventListener('click', () => {
             windowEl.style.display = 'none';
-            windowEl.remove(); // Clean up the element from the DOM
+            windowEl.remove(); 
         });
     });
+    
+    // Bring window to front when *anywhere* inside the window is clicked
+    windowEl.addEventListener('mousedown', () => bringWindowToFront(windowEl));
 
-    // Bring to front when clicked anywhere inside
-    windowEl.addEventListener('mousedown', () => {
-        highestZIndex++;
-        windowEl.style.zIndex = highestZIndex;
-    });
+    makeWindowDraggable(windowEl);
 }
 
 function openApp(appName) {
+    // Check which app was clicked and generate the specific window
     if (appName === 'maccraft') {
         createWindow('maccraft', 'MacCraft', 'Loading MacCraft assets... Please wait.');
     } else if (appName === 'settings') {
@@ -67,7 +70,7 @@ function openApp(appName) {
     }
 }
 
-// Draggable Windows Logic (Modified from icon drag logic)
+// Draggable Windows Logic - ONLY uses the title bar as a handle
 function makeWindowDraggable(windowElement) {
     const titleBar = windowElement.querySelector('.title-bar');
     let isDragging = false;
@@ -80,13 +83,13 @@ function makeWindowDraggable(windowElement) {
         const rect = windowElement.getBoundingClientRect();
         offsetX = e.clientX - rect.left;
         offsetY = e.clientY - rect.top;
-        highestZIndex++;
-        windowElement.style.zIndex = highestZIndex;
         windowElement.style.transition = "none";
+        // Z-index management moved to the general window mousedown listener above
     });
 
     window.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
+        // Constrain movement within the desktop area if you want
         windowElement.style.left = `${e.clientX - offsetX}px`;
         windowElement.style.top = `${e.clientY - offsetY}px`;
     });
@@ -98,8 +101,7 @@ function makeWindowDraggable(windowElement) {
     });
 }
 
-
-// Icon Dragging and Double Click Logic
+// Icon Dragging and Double Click Logic (Untouched from last version)
 function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY) {
     const targetLeft = clientX - offsetX;
     const targetTop = clientY - offsetY;
