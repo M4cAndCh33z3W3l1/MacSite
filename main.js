@@ -96,7 +96,7 @@ function makeWindowDraggable(windowElement) {
 }
 
 
-// Icon Dragging and Double Click Logic (Untouched)
+// Icon Dragging and Double Click Logic 
 function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY) {
     const targetLeft = clientX - offsetX;
     const targetTop = clientY - offsetY;
@@ -110,6 +110,7 @@ icons.forEach((icon, index) => {
     let isDragging = false;
     let offsetX = 0, offsetY = 0;
 
+    // Set initial position immediately on load
     icon.style.left = `${SNAP_OFFSET}px`;
     icon.style.top = `${SNAP_OFFSET + (index * GRID_SIZE)}px`;
 
@@ -137,12 +138,6 @@ icons.forEach((icon, index) => {
         isDragging = false;
         icon.style.zIndex = "";
         icon.style.transition = "all 0.2s ease-out"; 
-        
-        const targetLeft = e.clientX - offsetX;
-        const targetTop = e.clientY - offsetY;
-        const snappedLeft = Math.round(targetLeft / GRID_SIZE) * GRID_SIZE;
-        const snappedTop = Math.round(targetTop / GRID_SIZE) * GRID_SIZE;
-        icon.style.left = `${Math.max(SNAP_OFFSET, snappedLeft)}px`;
-        icon.style.top = `${Math.max(SNAP_OFFSET, snappedTop)}px`;
+        snapIconToGrid(icon, e.clientX, e.clientY, offsetX, offsetY);
     });
 });
