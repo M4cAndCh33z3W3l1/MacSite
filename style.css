@@ -22,7 +22,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: pointer;
+    cursor: grab; /* Changed to grab */
     padding: 5px;
     transition: all 0.2s ease-out; 
 }
@@ -76,7 +76,6 @@ body {
 /* SMOOTH OPENING ANIMATION */
 .window {
     box-shadow: 2px 2px 20px rgba(0,0,0,0.4);
-    /* Z-index is now managed entirely by main.js */
 }
 
 .window-animated {

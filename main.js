@@ -24,7 +24,6 @@ function createWindow(appName, title, content) {
     const windowId = `window-${Date.now()}`; 
     windowEl.id = windowId;
     windowEl.className = 'window window-animated';
-    // Add random offset so multiple windows don't stack perfectly on load
     windowEl.style.cssText = `position: absolute; width: 300px; left: ${150 + Math.random() * 50}px; top: ${100 + Math.random() * 50}px;`;
 
     windowEl.innerHTML = `
@@ -45,9 +44,8 @@ function createWindow(appName, title, content) {
     `;
 
     desktop.appendChild(windowEl);
-    bringWindowToFront(windowEl); // Bring new window to front immediately
+    bringWindowToFront(windowEl); 
 
-    // Add close event listeners dynamically
     windowEl.querySelectorAll('.close-window-btn').forEach(button => {
         button.addEventListener('click', () => {
             windowEl.style.display = 'none';
@@ -62,7 +60,6 @@ function createWindow(appName, title, content) {
 }
 
 function openApp(appName) {
-    // Check which app was clicked and generate the specific window
     if (appName === 'maccraft') {
         createWindow('maccraft', 'MacCraft', 'Loading MacCraft assets... Please wait.');
     } else if (appName === 'settings') {
@@ -77,19 +74,16 @@ function makeWindowDraggable(windowElement) {
     let offsetX = 0, offsetY = 0;
 
     titleBar.addEventListener('mousedown', (e) => {
-        // Prevents dragging if clicking on control buttons
         if (e.target.tagName === 'BUTTON') return; 
         isDragging = true;
         const rect = windowElement.getBoundingClientRect();
         offsetX = e.clientX - rect.left;
         offsetY = e.clientY - rect.top;
         windowElement.style.transition = "none";
-        // Z-index management moved to the general window mousedown listener above
     });
 
     window.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        // Constrain movement within the desktop area if you want
         windowElement.style.left = `${e.clientX - offsetX}px`;
         windowElement.style.top = `${e.clientY - offsetY}px`;
     });
@@ -101,7 +95,8 @@ function makeWindowDraggable(windowElement) {
     });
 }
 
-// Icon Dragging and Double Click Logic (Untouched from last version)
+
+// Icon Dragging and Double Click Logic (Untouched)
 function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY) {
     const targetLeft = clientX - offsetX;
     const targetTop = clientY - offsetY;
