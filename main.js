@@ -1,6 +1,10 @@
 const icons = document.querySelectorAll('.icon');
 const desktop = document.getElementById('desktop');
+const taskbarApps = document.getElementById('taskbar-apps');
 let highestZIndex = 1001; 
+
+const GRID_SIZE = 100;
+const SNAP_OFFSET = 10; 
 
 // Clock Logic
 function updateClock() {
@@ -12,10 +16,14 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 60000); 
 
-// Z-Index Management
+// Z-Index Management & Focus
 function bringWindowToFront(windowEl) {
     highestZIndex++;
     windowEl.style.zIndex = highestZIndex;
+    // Visually update taskbar buttons to show focus
+    document.querySelectorAll('.taskbar-btn').forEach(btn => btn.classList.remove('active'));
+    const taskbarBtn = document.getElementById(`taskbar-btn-${windowEl.id}`);
+    if (taskbarBtn) taskbarBtn.classList.add('active');
 }
 
 // Window Management Logic
@@ -30,7 +38,7 @@ function createWindow(appName, title, content) {
         <div class="title-bar" style="cursor: grab;">
             <div class="title-bar-text">${title}</div>
             <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
+                <button aria-label="Minimize" class="minimize-window-btn"></button>
                 <button aria-label="Maximize"></button>
                 <button aria-label="Close" class="close-window-btn"></button>
             </div>
@@ -45,18 +53,39 @@ function createWindow(appName, title, content) {
 
     desktop.appendChild(windowEl);
     bringWindowToFront(windowEl); 
+    createTaskbarButton(windowEl, title);
 
+    // Close buttons
     windowEl.querySelectorAll('.close-window-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            windowEl.style.display = 'none';
-            windowEl.remove(); 
-        });
+        button.addEventListener('click', () => closeWindow(windowEl));
+    });
+    // Minimize buttons
+     windowEl.querySelectorAll('.minimize-window-btn').forEach(button => {
+        button.addEventListener('click', () => minimizeWindow(windowEl));
     });
     
     // Bring window to front when *anywhere* inside the window is clicked
     windowEl.addEventListener('mousedown', () => bringWindowToFront(windowEl));
 
     makeWindowDraggable(windowEl);
+}
+
+function closeWindow(windowEl) {
+    const taskbarBtn = document.getElementById(`taskbar-btn-${windowEl.id}`);
+    if (taskbarBtn) taskbarBtn.remove();
+    windowEl.style.display = 'none';
+    windowEl.remove(); 
+}
+
+function minimizeWindow(windowEl) {
+    windowEl.style.display = 'none';
+    const taskbarBtn = document.getElementById(`taskbar-btn-${windowEl.id}`);
+    if (taskbarBtn) taskbarBtn.classList.remove('active');
+}
+
+function restoreWindow(windowEl) {
+    windowEl.style.display = 'block';
+    bringWindowToFront(windowEl);
 }
 
 function openApp(appName) {
@@ -66,6 +95,28 @@ function openApp(appName) {
         createWindow('settings', 'Settings', 'Control Panel: System settings are locked.');
     }
 }
+
+// Taskbar Button Logic
+function createTaskbarButton(windowEl, title) {
+    const btn = document.createElement('div');
+    btn.id = `taskbar-btn-${windowEl.id}`;
+    btn.className = 'taskbar-btn active';
+    btn.innerText = title;
+    taskbarApps.appendChild(btn);
+
+    btn.addEventListener('click', () => {
+        if (windowEl.style.display === 'none') {
+            restoreWindow(windowEl);
+        } else if (windowEl.style.zIndex === highestZIndex.toString()) {
+            // If already at front, minimize it
+            minimizeWindow(windowEl);
+        } else {
+            // If open but in background, bring to front
+            bringWindowToFront(windowEl);
+        }
+    });
+}
+
 
 // Draggable Windows Logic - ONLY uses the title bar as a handle
 function makeWindowDraggable(windowElement) {
@@ -110,7 +161,7 @@ icons.forEach((icon, index) => {
     let isDragging = false;
     let offsetX = 0, offsetY = 0;
 
-    // Set initial position immediately on load
+    // Set initial position using an offset based on index
     icon.style.left = `${SNAP_OFFSET}px`;
     icon.style.top = `${SNAP_OFFSET + (index * GRID_SIZE)}px`;
 
