@@ -4,24 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MacSite</title>
-    <!-- Add the xp.css link here -->
-    <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+    <link rel="stylesheet" href="https://unpkg.com" />
     <link rel="stylesheet" href="style.css">
 </head>
 <body id="main-body">
     <div id="desktop">
-        <!-- Eaglercraft icon using your link -->
-        <div class="icon">
-            <img src="https://iili.io/frIMtNp.png" class="icon-img" alt="Minecraft Icon">
-            <!-- contenteditable removed below -->
+        <!-- Minecraft Icon -->
+        <div class="icon" data-app="maccraft">
+            <img src="https://iili.io" class="icon-img" alt="Minecraft Icon">
             <span class="icon-label">MacCraft</span>
         </div>
         
-        <!-- Settings icon using a reliable, transparent link -->
-        <div class="icon">
-            <img src="https://iili.io/frILdru.png" class="icon-img" alt="Settings Icon">
-            <!-- contenteditable removed below -->
+        <!-- Settings Icon -->
+        <div class="icon" data-app="settings">
+            <img src="https://iili.io" class="icon-img" alt="Settings Icon">
             <span class="icon-label">Settings</span>
+        </div>
+
+        <!-- Pop-up Window (Hidden by default) -->
+        <div id="app-window" class="window" style="display: none; position: absolute; width: 300px; z-index: 3000;">
+            <div class="title-bar">
+                <div class="title-bar-text" id="window-title">Settings</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close" id="close-btn"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <p id="window-content">Welcome to the menu!</p>
+                <section class="field-row" style="justify-content: flex-end">
+                    <button id="ok-btn">OK</button>
+                </section>
+            </div>
         </div>
     </div>
 
