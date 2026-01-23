@@ -1,7 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
-    background-image: url("https://iili.io/fryNMHN.png");
+    background-image: url("https://iili.io");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -51,63 +51,39 @@ body {
     align-items: center;
     box-sizing: border-box;
     z-index: 2000;
-    padding-right: 15px; 
+    padding-right: 15px;
 }
 
-/* Container for all open application buttons */
 #taskbar-apps {
     display: flex;
     flex-grow: 1;
     height: 100%;
     padding-left: 10px;
     gap: 5px;
-    overflow: hidden; /* Keeps buttons from overflowing past the clock area */
 }
 
-/* Individual taskbar buttons */
 .taskbar-btn {
     background: #2f71cd;
     border: 1px solid #104a9d;
     color: white;
-    padding: 0 5px 0 10px; /* Adjusted padding for the close button */
+    padding: 0 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Pushes the 'X' to the right */
     cursor: pointer;
     box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.4), inset 0px -1px 1px rgba(0, 0, 0, 0.4);
     height: 80%;
     margin-top: auto;
     margin-bottom: auto;
     max-width: 150px;
-    flex-shrink: 1; /* Allows buttons to shrink if too many are open */
-}
-
-.taskbar-btn:hover {
-    background: #3c7ecc;
-}
-
-.taskbar-btn.active {
-    background: #104a9d;
-    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.4), inset 0px -1px 1px rgba(255, 255, 255, 0.4);
-}
-
-.taskbar-btn-label {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    pointer-events: none; /* Allows click events to pass through to the main button */
 }
 
-.taskbar-close-btn {
-    margin-left: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    line-height: 1;
-    height: 100%;
-    display: flex;
-    align-items: center;
+.taskbar-btn:hover { background: #3c7ecc; }
+.taskbar-btn.active {
+    background: #104a9d;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.4), inset 0px -1px 1px rgba(255, 255, 255, 0.4);
 }
 
 .start-btn {
@@ -126,12 +102,17 @@ body {
 .system-tray {
     color: white;
     font-size: 11px;
-    padding-left: 15px; 
+    padding-left: 15px;
 }
 
-/* SMOOTH OPENING ANIMATION */
+/* WINDOW STYLES */
 .window {
     box-shadow: 2px 2px 20px rgba(0,0,0,0.4);
+}
+
+/* Makes the content area white as requested in the image */
+.window-body {
+    background-color: white; 
 }
 
 .window-animated {
