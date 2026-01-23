@@ -1,7 +1,7 @@
 body {
     margin: 0;
     overflow: hidden;
-    background-image: url("https://iili.io/fryNMHN.png");
+    background-image: url("https://iili.io");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -113,6 +113,14 @@ body {
 /* Makes the content area white as requested in the image */
 .window-body {
     background-color: white; 
+}
+
+/* Makes the title bar smaller and adds glass effect */
+.title-bar {
+    height: 25px; /* Smaller height */
+    background: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+    backdrop-filter: blur(5px); /* Glass effect */
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .window-animated {

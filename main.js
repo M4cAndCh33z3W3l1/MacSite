@@ -25,7 +25,7 @@ function bringWindowToFront(windowEl) {
     if (taskbarBtn) taskbarBtn.classList.add('active');
 }
 
-// Window Management Logic (No functional changes here)
+// Window Management Logic
 function createWindow(appName, title, content) {
     const windowEl = document.createElement('div');
     const windowId = `window-${Date.now()}`; 
@@ -84,15 +84,22 @@ function restoreWindow(windowEl) {
     bringWindowToFront(windowEl);
 }
 
+// Open App Logic (SINGLE INSTANCE CHECK ADDED HERE)
 function openApp(appName) {
-    if (appName === 'maccraft') {
-        createWindow('maccraft', 'MacCraft', 'Loading MacCraft assets... Please wait.');
-    } else if (appName === 'settings') {
-        createWindow('settings', 'Settings', 'Control Panel: System settings are locked.');
+    if (appName === 'settings') {
+        const existingSettings = document.querySelector('[data-app-type="settings"]');
+        if (existingSettings) {
+            restoreWindow(existingSettings);
+            return; // Exit function if settings is already open
+        }
+        createWindow(appName, 'Settings', 'Control Panel: System settings are locked.');
+    } else if (appName === 'maccraft') {
+        // Allows multiple instances of maccraft
+        createWindow(appName, 'MacCraft', 'Loading MacCraft assets... Please wait.');
     }
 }
 
-// Taskbar Button Logic (No functional changes here)
+// Taskbar Button Logic
 function createTaskbarButton(windowEl, title) {
     const btn = document.createElement('div');
     btn.id = `taskbar-btn-${windowEl.id}`;
@@ -110,6 +117,7 @@ function createTaskbarButton(windowEl, title) {
         }
     });
 }
+
 
 // Draggable Windows Logic (No functional changes here)
 function makeWindowDraggable(windowElement) {
@@ -140,7 +148,7 @@ function makeWindowDraggable(windowElement) {
 }
 
 
-// Icon Dragging & Collision Detection (NEW LOGIC)
+// Icon Dragging & Collision Detection
 function checkIconCollision(snappedLeft, snappedTop, currentIcon) {
     const iconsArray = Array.from(icons);
     for (const otherIcon of iconsArray) {
@@ -149,7 +157,6 @@ function checkIconCollision(snappedLeft, snappedTop, currentIcon) {
         const otherLeft = parseInt(otherIcon.style.left, 10);
         const otherTop = parseInt(otherIcon.style.top, 10);
 
-        // Check if the snapped position overlaps with another icon's position
         if (snappedLeft === otherLeft && snappedTop === otherTop) {
             return true; // Collision detected
         }
@@ -169,7 +176,7 @@ function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY, originalPos) {
         // If collision, snap back to original position
         icon.style.left = `${originalPos.left}px`;
         icon.style.top = `${originalPos.top}px`;
-        alert("Cannot place two icons in the same spot!");
+        // Removed alert box to be less intrusive
     } else {
         // No collision, apply new position
         icon.style.left = `${Math.max(SNAP_OFFSET, snappedLeft)}px`;
@@ -182,7 +189,6 @@ icons.forEach((icon, index) => {
     let offsetX = 0, offsetY = 0;
     let originalPos = { left: 0, top: 0 };
 
-    // Set initial position using an offset based on index
     icon.style.left = `${SNAP_OFFSET}px`;
     icon.style.top = `${SNAP_OFFSET + (index * GRID_SIZE)}px`;
 
@@ -191,7 +197,6 @@ icons.forEach((icon, index) => {
         const rect = icon.getBoundingClientRect();
         offsetX = e.clientX - rect.left;
         offsetY = e.clientY - rect.top;
-        // Save the original position before dragging starts
         originalPos.left = parseInt(icon.style.left, 10);
         originalPos.top = parseInt(icon.style.top, 10);
         icon.style.zIndex = 1000;
@@ -213,7 +218,6 @@ icons.forEach((icon, index) => {
         isDragging = false;
         icon.style.zIndex = "";
         icon.style.transition = "all 0.2s ease-out"; 
-        // Pass originalPos to snap function to handle potential snap-back
         snapIconToGrid(icon, e.clientX, e.clientY, offsetX, offsetY, originalPos);
     });
 });
