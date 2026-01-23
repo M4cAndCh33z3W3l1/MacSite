@@ -31,6 +31,8 @@ function createWindow(appName, title, content) {
     const windowId = `window-${Date.now()}`; 
     windowEl.id = windowId;
     windowEl.className = 'window window-animated';
+    // Store the application type so we can check for single instances
+    windowEl.setAttribute('data-app-type', appName); 
     windowEl.style.cssText = `position: absolute; width: 300px; left: ${150 + Math.random() * 50}px; top: ${100 + Math.random() * 50}px;`;
 
     windowEl.innerHTML = `
@@ -84,10 +86,11 @@ function restoreWindow(windowEl) {
     bringWindowToFront(windowEl);
 }
 
-// Open App Logic (SINGLE INSTANCE CHECK ADDED HERE)
+// Open App Logic (SINGLE INSTANCE CHECK)
 function openApp(appName) {
     if (appName === 'settings') {
-        const existingSettings = document.querySelector('[data-app-type="settings"]');
+        // Find if a settings window is already open
+        const existingSettings = document.querySelector('.window[data-app-type="settings"]');
         if (existingSettings) {
             restoreWindow(existingSettings);
             return; // Exit function if settings is already open
@@ -168,6 +171,7 @@ function checkIconCollision(snappedLeft, snappedTop, currentIcon) {
 function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY, originalPos) {
     const targetLeft = clientX - offsetX;
     const targetTop = clientY - offsetY;
+    // Calculate the nearest valid grid position
     const snappedLeft = Math.round(targetLeft / GRID_SIZE) * GRID_SIZE;
     const snappedTop = Math.round(targetTop / GRID_SIZE) * GRID_SIZE;
     
@@ -176,7 +180,6 @@ function snapIconToGrid(icon, clientX, clientY, offsetX, offsetY, originalPos) {
         // If collision, snap back to original position
         icon.style.left = `${originalPos.left}px`;
         icon.style.top = `${originalPos.top}px`;
-        // Removed alert box to be less intrusive
     } else {
         // No collision, apply new position
         icon.style.left = `${Math.max(SNAP_OFFSET, snappedLeft)}px`;
